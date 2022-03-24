@@ -1,0 +1,74 @@
+version: "3"
+
+services: 
+    frr1:
+        container_name: frr1
+        build: ./frr1
+        hostname: frr1
+        networks:
+            net-frr1-frr2:
+                ipv4_address: 192.168.11.11
+            net-frr1:
+                ipv4_address: 192.168.1.11
+        privileged: true
+        tty: true
+    
+    frr2:
+        container_name: frr2
+        build: ./frr2
+        hostname: frr2
+        networks:
+            net-frr1-frr2:
+                ipv4_address: 192.168.11.22
+            net-frr2:
+                ipv4_address: 192.168.2.11
+        privileged: true
+        tty: true
+        depends_on:
+        - frr1
+
+    h1:
+        container_name: h1
+        build: ./h1
+        hostname: h1
+        networks:
+            net-frr1:
+                ipv4_address: 192.168.1.12
+        privileged: true
+        tty: true
+        depends_on:
+        - frr1
+
+    h2:
+        container_name: h2
+        build: ./h2
+        hostname: h2
+        networks:
+            net-frr2:
+                ipv4_address: 192.168.2.12
+        privileged: true
+        tty: true
+        depends_on:
+        - frr2
+
+networks:
+    net-frr1-frr2:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 192.168.11.0/24
+
+    net-frr1:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 192.168.1.0/24
+    
+    net-frr2:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 192.168.2.0/24
