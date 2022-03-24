@@ -1,12 +1,10 @@
 # docker-ospf
 docker containerを複数立ち上げその間でospfを動かす．
 ノードには以下を使用．
-|    |    |
-| ---- | ---- |
-|  ホストマシン  |  Ubuntu 20.04.1 LTS  |
-|  ルータ  |  [FRRouting/frr](https://github.com/FRRouting/frr) v8.8.2 |
-|  ホスト  |  [jonlabelle/docker-network-tools](https://github.com/jonlabelle/docker-network-tools) |
-| | |
+
+- ホストマシン Ubuntu 20.04.1 LTS
+- ルータ [FRRouting/frr](https://github.com/FRRouting/frr) v8.8.2
+- ホスト [jonlabelle/docker-network-tools](https://github.com/jonlabelle/docker-network-tools)
 
 ## topology
 ### small
